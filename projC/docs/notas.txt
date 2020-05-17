@@ -1,0 +1,86 @@
+TEMPOS DE EXECUÇÃO 
+
+
+
+------------------Com faturacao em matriz------------------------------------------------------------------------------------
+QUERY 2: 0.080529 seconds
+QUERY 3: 0.000097 seconds 
+
+- diferenca usando array de catalogos no sgv para query de produtos nunca comprados 
+
+    USANDO ARRAY (Catalogo prodsNaoUsados[4]- um para cada filial e outro para global)
+    ->Carregamento dos dados: 4.302998 seconds 
+    ->Resposta à query 4:
+        Filial a filial: 0.012812 seconds
+        Global: 0.000122 seconds
+
+    NAO USANDO ARRAY (fazendo pesquisa no catalogo todo e na faturacao)
+    ->Carregamento dos dados: 4 seconds 
+    ->Resposta à query 4: 
+        Filial a filial: 
+        Global:  
+
+    USANDO ARRAY SO PARA RESULTADO GLOBAL(fazendo pesquisa no catalogo todo e na faturacao para valores de filiais ) 
+    ->Carregamento dos dados: 4.260876 seconds -sem carregar vendas para filial
+    ->Resposta à query 4: 
+        Filial a filial: 
+        Global: 0.000757 seconds
+
+CARREGANDO AS ESTRUTURAS DAS 3 FILIAIS 
+
+    CARREGANDO ARRAY FILIAL : em tempo de parsing 
+    ->Carregamento dos dados: 3.402836 seconds (a carregar os clientes para as estruturas, sem carregar vendas)
+    ->Carregamento dos dados: (a carregar os clientes e as vendas para as estruturas)
+    ->Respposta a query 5:
+    ->Respposta a query 6:
+
+
+
+    ------------------Com faturacao em array(filiais)------------------------------------------------------------------------------------
+    
+        FAT2
+    
+    Carregamento dos dados:
+    --A carregar so os clientes para as filiais: 4.168633 seconds
+    --E a adicionar as vendas nas filias: 5.857211 seconds
+
+    ----------------------A USAR --------------
+    --Adcionar vendas sem carregar clientes
+    query 1: 5.690018 seconds
+    query 2: 0.035245 seconds
+    query 3: 
+        -Filial a filial: 0.000028 seconds
+        -Global: 0.000046 seconds
+    query 4:
+        -Filial a filial: 2.295467 seconds (usando glist) 
+                        : 0.160149 seconds (usando gptrarry)
+        -Global: 0.000182 seconds (usando Produtos prodnaocomprados)
+    query5: 0.012954 seconds
+    query6: 0.005061 seconds
+    query7: 0.000024 seconds
+    query8: 0.143959 seconds (maximo tempo- mes 1 a 12)
+    query9: 0.012570 seconds 
+    query 10: 0.000052 seconds
+    query 11: 1.391854 seconds (really bad)
+    query 12: 
+
+
+    usando clones:
+
+    query 1: 5.690018 seconds
+    query 2: 0.098704 seconds
+    query 3: 
+        -Filial a filial: 0.000079 seconds
+        -Global: 0.000068 seconds
+    query 4:
+        -Filial a filial: 2.295467 seconds (usando glist) 
+                        : 0.298104 seconds (usando gptrarry)
+        -Global:  0.000479 seconds (usando Produtos prodnaocomprados)
+    query5: 0.017647 seconds
+    query6: 0.010203 seconds
+    query7: 0.000022 seconds
+    query8: 0.145644 seconds (maximo tempo- mes 1 a 12)
+    query9: 0.009419 seconds
+    query 10: 0.000082 seconds
+    query 11: 1.485439 seconds
+    query 12: 0.000110 seconds
